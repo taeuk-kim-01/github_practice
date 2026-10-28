@@ -5,8 +5,7 @@ import re
 import sys
 from datetime import date, datetime
 from pathlib import Path
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
-from news_sources import fetch_news
+from news_sources import KST, fetch_news
 
 ROOT = Path(__file__).resolve().parent
 
@@ -19,11 +18,7 @@ def parse_date(value):
 
 
 def korea_today():
-    try:
-        return datetime.now(ZoneInfo("Asia/Seoul")).date().isoformat()
-    except ZoneInfoNotFoundError:
-        from datetime import timezone, timedelta
-        return datetime.now(timezone(timedelta(hours=9))).date().isoformat()
+    return datetime.now(KST).date().isoformat()
 
 
 def extract_summary(body):
